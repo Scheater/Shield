@@ -1,14 +1,15 @@
+// KeyAuth App-Konfiguration
 const appName = "Invite-Code test";
 const ownerId = "22DRjHMre0";
 const version = "1.0";
 
-// Zuerst Init-Session starten
+// Erstes: Session initialisieren
 function initKeyAuth() {
   return fetch(`https://keyauth.win/api/1.1/?type=init&name=${appName}&ownerid=${ownerId}&ver=${version}`)
     .then(res => res.json());
 }
 
-// Dann registrieren
+// Zweites: Registrierung ausführen
 function register() {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
@@ -16,39 +17,37 @@ function register() {
   const message = document.getElementById("message");
 
   if (!username || !password || !license) {
-    message.innerText = "Please fill in all fields.";
     message.style.color = "#ff6b6b";
+    message.innerText = "Please fill in all fields.";
     return;
   }
 
-  // Session erzeugen
   initKeyAuth().then(initData => {
-    console.log("INIT:", initData);
+    console.log("Init:", initData);
 
     if (!initData.success) {
-      message.innerText = "Init failed: " + initData.message;
       message.style.color = "#ff6b6b";
+      message.innerText = "Init failed: " + initData.message;
       return;
     }
 
-    // Jetzt register aufrufen
     const url = `https://keyauth.win/api/1.1/?type=register&name=${appName}&ownerid=${ownerId}&username=${username}&pass=${password}&key=${license}&ver=${version}`;
     fetch(url)
       .then(res => res.json())
       .then(data => {
-        console.log("REGISTER:", data);
+        console.log("Register:", data);
 
         if (data.success) {
-          message.innerText = "✅ Registration successful!";
           message.style.color = "#7bffb0";
+          message.innerText = "✅ Registered! You can now login.";
         } else {
-          message.innerText = data.message;
           message.style.color = "#ff6b6b";
+          message.innerText = data.message;
         }
       })
       .catch(err => {
-        message.innerText = "Connection error.";
         message.style.color = "#ff6b6b";
+        message.innerText = "Connection error.";
         console.error(err);
       });
   });
