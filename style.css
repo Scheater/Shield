@@ -1,0 +1,136 @@
+/* ===== RESET & BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(180deg, #0d0d0d, #1a1a1a);
+  color: #e0e0e0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ===== HERO SECTION (100% HEIGHT) ===== */
+.hero {
+  position: relative;
+  height: 100vh;
+  background: url('https://i.imgur.com/LRgxXWH.jpeg') no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(6px);
+  z-index: 1;
+}
+
+.overlay {
+  position: relative;
+  z-index: 2;
+  padding: 20px;
+  max-width: 1200px;
+  width: 90%;
+}
+
+/* ===== HEADLINE ===== */
+h1 {
+  font-size: 3.5rem;
+  color: #b983ff;
+  text-shadow: 0 0 15px #7b2cbf;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.3rem;
+  color: #ccc;
+  margin-bottom: 30px;
+}
+
+/* ===== BUTTONS ===== */
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.btn {
+  padding: 12px 28px;
+  background: #7b2cbf;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.3s ease;
+  box-shadow: 0 0 10px #7b2cbf;
+}
+
+.btn:hover {
+  background: #9a38ff;
+  box-shadow: 0 0 20px #9a38ff;
+}
+
+.btn.secondary {
+  background: transparent;
+  border: 2px solid #7b2cbf;
+  color: #7b2cbf;
+}
+
+.btn.secondary:hover {
+  background: #7b2cbf;
+  color: #fff;
+}
+
+/* ===== FEATURES INSIDE HERO ===== */
+.feature-container {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.feature-box {
+  background-color: #1f1f1f;
+  padding: 20px 25px;
+  border-radius: 10px;
+  width: 260px;
+  box-shadow: 0 0 15px rgba(123, 44, 191, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(123, 44, 191, 0.5);
+}
+
+.feature-box h3 {
+  margin-bottom: 10px;
+  color: #7b2cbf;
+  font-size: 1.1rem;
+}
+
+.feature-box p {
+  font-size: 0.95rem;
+  color: #ccc;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  color: #999;
+  font-size: 0.85rem;
+}

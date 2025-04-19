@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard | Shield Cheats</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="overlay-bg"></div>
+
+  <div class="container">
+    <h1>Welcome to Shield Cheats</h1>
+    <p>Select your game and download the latest version of our private cheats.</p>
+
+    <div class="tabs">
+      <button class="tab-button active" data-tab="fivem">FiveM</button>
+      <button class="tab-button" data-tab="valorant">Valorant</button>
+    </div>
+
+    <div id="fivem" class="tab-content active">
+      <h2>FiveM Cheats</h2>
+      <p>Last Update: <span id="fivem-update">April 15, 2025</span></p>
+      <a href="tools/fivem-cheat.zip" class="download-button" download>Download FiveM Cheat</a>
+    </div>
+
+    <div id="valorant" class="tab-content">
+      <h2>Valorant Cheats</h2>
+      <p>Last Update: <span id="valorant-update">April 10, 2025</span></p>
+      <a href="tools/valorant-cheat.zip" class="download-button" download>Download Valorant Cheat</a>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

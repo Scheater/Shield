@@ -1,0 +1,116 @@
+/* ===== RESET & BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: url('https://i.imgur.com/LRgxXWH.jpeg') no-repeat center center/cover;
+  color: #e0e0e0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 0;
+}
+
+/* ===== MAIN CONTAINER ===== */
+.container {
+  position: relative;
+  z-index: 1;
+  background: #1a1a1a;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(123, 44, 191, 0.6);
+  text-align: center;
+  width: 90%;
+  max-width: 600px;
+}
+
+h1 {
+  color: #b983ff;
+  margin-bottom: 10px;
+  font-size: 2rem;
+}
+
+p {
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+/* ===== TABS ===== */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.tab-button {
+  background: #2a2a2a;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 0 10px rgba(123, 44, 191, 0.3);
+  font-weight: bold;
+}
+
+.tab-button.active,
+.tab-button:hover {
+  background: #7b2cbf;
+  box-shadow: 0 0 15px #7b2cbf;
+}
+
+/* ===== TAB CONTENT ===== */
+.tab-content {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== DOWNLOAD BUTTON ===== */
+.download-button {
+  display: inline-block;
+  padding: 12px 20px;
+  background: #7b2cbf;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-top: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  box-shadow: 0 0 15px #7b2cbf;
+}
+
+.download-button:hover {
+  background: #9a38ff;
+  box-shadow: 0 0 25px #9a38ff;
+}
