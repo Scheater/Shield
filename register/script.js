@@ -1,15 +1,14 @@
-// 🔐 Konfiguration
 const appName = "Invite-Code test";
 const ownerId = "22DRjHMre0";
 const version = "1.0";
 
-// 1️⃣ Initialisierung (erzeugt gültige Session)
+// Zuerst Init-Session starten
 function initKeyAuth() {
-  const initUrl = `https://keyauth.win/api/1.1/?type=init&name=${appName}&ownerid=${ownerId}&ver=${version}`;
-  return fetch(initUrl).then(res => res.json());
+  return fetch(`https://keyauth.win/api/1.1/?type=init&name=${appName}&ownerid=${ownerId}&ver=${version}`)
+    .then(res => res.json());
 }
 
-// 2️⃣ Registrierung (nur nach erfolgreicher Init)
+// Dann registrieren
 function register() {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
@@ -17,42 +16,40 @@ function register() {
   const message = document.getElementById("message");
 
   if (!username || !password || !license) {
-    message.style.color = "#ff6b6b";
     message.innerText = "Please fill in all fields.";
+    message.style.color = "#ff6b6b";
     return;
   }
 
-  // Zuerst init aufrufen
+  // Session erzeugen
   initKeyAuth().then(initData => {
+    console.log("INIT:", initData);
+
     if (!initData.success) {
-      message.style.color = "#ff6b6b";
       message.innerText = "Init failed: " + initData.message;
+      message.style.color = "#ff6b6b";
       return;
     }
 
-    // Danach registrieren
-    const registerUrl = `https://keyauth.win/api/1.1/?type=register&name=${appName}&ownerid=${ownerId}&username=${username}&pass=${password}&key=${license}&ver=${version}`;
-
-    fetch(registerUrl)
+    // Jetzt register aufrufen
+    const url = `https://keyauth.win/api/1.1/?type=register&name=${appName}&ownerid=${ownerId}&username=${username}&pass=${password}&key=${license}&ver=${version}`;
+    fetch(url)
       .then(res => res.json())
       .then(data => {
-        if (data.success) {
-          alert("✅ Registered successfully!");
-          message.style.color = "#7bffb0";
-          message.innerText = "You can now log in.";
+        console.log("REGISTER:", data);
 
-          // Eingaben leeren
-          document.getElementById("username").value = "";
-          document.getElementById("password").value = "";
-          document.getElementById("license").value = "";
+        if (data.success) {
+          message.innerText = "✅ Registration successful!";
+          message.style.color = "#7bffb0";
         } else {
-          message.style.color = "#ff6b6b";
           message.innerText = data.message;
+          message.style.color = "#ff6b6b";
         }
       })
-      .catch(() => {
+      .catch(err => {
+        message.innerText = "Connection error.";
         message.style.color = "#ff6b6b";
-        message.innerText = "Connection error. Try again.";
+        console.error(err);
       });
   });
 }
