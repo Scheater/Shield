@@ -63,6 +63,10 @@ input {
   font-size: 1rem;
 }
 
+input::placeholder {
+  color: #888;
+}
+
 button {
   width: 100%;
   padding: 12px;
@@ -97,4 +101,19 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+/* ===== HOME ICON oben rechts ===== */
+.home-icon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: #b983ff;
+  font-size: 1.4rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.home-icon:hover {
+  color: #ffffff;
 }

@@ -1,54 +1,57 @@
-// KeyAuth App-Konfiguration
+// 🔐 KeyAuth App-Konfiguration
 const appName = "Invite-Code test";
 const ownerId = "22DRjHMre0";
 const version = "1.0";
+const apiUrl = "https://keyauth.win/api/1.3/";
 
-// Erstes: Session initialisieren
-function initKeyAuth() {
-  return fetch(`https://keyauth.win/api/1.1/?type=init&name=${appName}&ownerid=${ownerId}&ver=${version}`)
-    .then(res => res.json());
+let sessionid = "";
+
+// ⏱️ Schritt 1: Session initialisieren
+async function initKeyAuth() {
+  const url = `${apiUrl}?type=init&name=${appName}&ownerid=${ownerId}&ver=${version}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  console.log("INIT:", data);
+
+  if (data.success) {
+    sessionid = data.sessionid;
+    return true;
+  } else {
+    document.getElementById("message").innerText = "Init failed: " + data.message;
+    document.getElementById("message").style.color = "#ff6b6b";
+    return false;
+  }
 }
 
-// Zweites: Registrierung ausführen
-function register() {
+// 📝 Schritt 2: Registrierung ausführen
+async function register() {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
   const license = document.getElementById("license").value.trim();
   const message = document.getElementById("message");
 
   if (!username || !password || !license) {
-    message.style.color = "#ff6b6b";
     message.innerText = "Please fill in all fields.";
+    message.style.color = "#ff6b6b";
     return;
   }
 
-  initKeyAuth().then(initData => {
-    console.log("Init:", initData);
+  const initialized = await initKeyAuth();
+  if (!initialized) return;
 
-    if (!initData.success) {
-      message.style.color = "#ff6b6b";
-      message.innerText = "Init failed: " + initData.message;
-      return;
-    }
+  const registerUrl = `${apiUrl}?type=register&name=${appName}&ownerid=${ownerId}&username=${username}&pass=${password}&key=${license}&ver=${version}&sessionid=${sessionid}`;
+  const res = await fetch(registerUrl);
+  const data = await res.json();
+  console.log("REGISTER:", data);
 
-    const url = `https://keyauth.win/api/1.1/?type=register&name=${appName}&ownerid=${ownerId}&username=${username}&pass=${password}&key=${license}&ver=${version}`;
-    fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        console.log("Register:", data);
-
-        if (data.success) {
-          message.style.color = "#7bffb0";
-          message.innerText = "✅ Registered! You can now login.";
-        } else {
-          message.style.color = "#ff6b6b";
-          message.innerText = data.message;
-        }
-      })
-      .catch(err => {
-        message.style.color = "#ff6b6b";
-        message.innerText = "Connection error.";
-        console.error(err);
-      });
-  });
+  if (data.success) {
+    message.innerText = "✅ Registered successfully! You can now login.";
+    message.style.color = "#7bffb0";
+    document.getElementById("username").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("license").value = "";
+  } else {
+    message.innerText = data.message;
+    message.style.color = "#ff6b6b";
+  }
 }

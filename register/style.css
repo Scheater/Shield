@@ -39,13 +39,13 @@ body::before {
   max-width: 400px;
 }
 
-h2 {
+.container h2 {
   color: #c084fc;
   margin-bottom: 10px;
   font-size: 1.8rem;
 }
 
-p {
+.container p {
   margin-bottom: 20px;
   color: #aaa;
 }
@@ -99,3 +99,19 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+/* Home-Icon oben rechts */
+.home-icon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: #b983ff;
+  font-size: 1.4rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.home-icon:hover {
+  color: #ffffff;
+}
+
